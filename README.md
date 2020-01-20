@@ -1,5 +1,8 @@
 # WiFi station with ping
 
+ESP-IDF Station Mode has a issues that Wifi connection is disconnected.   
+This project can work around it.   
+
 ## How to use example
 
 ### Configure the project
