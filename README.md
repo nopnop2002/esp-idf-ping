@@ -1,7 +1,7 @@
 # WiFi station with ping
 
 ESP-IDF Station Mode has a issues that the Wifi connection is disconnected after a while.   
-This project can work around it.   
+This project can work around it that challenge by using ping.   
 
 ## How to use example
 
@@ -66,6 +66,26 @@ I (1029) wifi: AP's beacon interval = 102400 us, DTIM period = 3
 I (2089) esp_netif_handlers: sta ip: 192.168.77.89, mask: 255.255.255.0, gw: 192.168.77.1
 I (2089) wifi station: got ip:192.168.77.89
 I (2089) wifi station: connected to ap SSID:myssid password:mypassword
+I (2091) wifi station: wifi_init_sta finished.
+I (2091) wifi station: connect to ap SSID:aterm-22fa1c-g
+I (2101) wifi station: Connection success
+I (2111) PING: IP Address: 192.168.10.102
+I (2111) PING: Subnet mask: 255.255.255.0
+I (2111) PING: Gateway: 192.168.10.1
+I (2121) PING: gateway_addr.type=0
+I (2121) PING: gateway_addr=192.168.10.1
+I (2131) PING: ping start
+I (2131) wifi station: initialize_ping success
+I (2581) PING: 64 bytes from 192.168.10.1 icmp_seq=1 ttl=64 time=449 ms
+I (12151) PING: 64 bytes from 192.168.10.1 icmp_seq=2 ttl=64 time=18 ms
+I (22141) PING: 64 bytes from 192.168.10.1 icmp_seq=3 ttl=64 time=8 ms
+I (32131) PING: 64 bytes from 192.168.10.1 icmp_seq=4 ttl=64 time=4 ms
+I (42211) PING: 64 bytes from 192.168.10.1 icmp_seq=5 ttl=64 time=80 ms
+I (52131) PING: 64 bytes from 192.168.10.1 icmp_seq=6 ttl=64 time=2 ms
+I (62131) PING: 64 bytes from 192.168.10.1 icmp_seq=7 ttl=64 time=1 ms
+I (72131) PING: 64 bytes from 192.168.10.1 icmp_seq=8 ttl=64 time=4 ms
+I (82131) PING: 64 bytes from 192.168.10.1 icmp_seq=9 ttl=64 time=2 ms
+I (92131) PING: 64 bytes from 192.168.10.1 icmp_seq=10 ttl=64 time=1 ms
 ```
 
 Console output if the station failed to connect to AP:
