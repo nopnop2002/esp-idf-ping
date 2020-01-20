@@ -67,7 +67,6 @@ I (2089) esp_netif_handlers: sta ip: 192.168.77.89, mask: 255.255.255.0, gw: 192
 I (2089) wifi station: got ip:192.168.77.89
 I (2089) wifi station: connected to ap SSID:myssid password:mypassword
 I (2091) wifi station: wifi_init_sta finished.
-I (2091) wifi station: connect to ap SSID:aterm-22fa1c-g
 I (2101) wifi station: Connection success
 I (2111) PING: IP Address: 192.168.10.102
 I (2111) PING: Subnet mask: 255.255.255.0
