@@ -10,6 +10,11 @@ make menuconfig
 
 * Set WiFi SSID and WiFi Password and Maximum retry under Example Configuration Options.
 
+![config-1](https://user-images.githubusercontent.com/6020549/72844474-eaa0c600-3cdf-11ea-99aa-84f55a86f671.jpg)
+
+![config-2](https://user-images.githubusercontent.com/6020549/72844479-ee344d00-3cdf-11ea-83c4-01ff97501370.jpg)
+
+
 ### Build and Flash
 
 Build the project and flash it to the board, then run monitor tool to view serial output:
