@@ -1,2 +1,4 @@
-idf_component_register(SRCS "station_example_main.c"
-                    INCLUDE_DIRS ".")
+set(COMPONENT_SRCS main.c ping.c)
+set(COMPONENT_ADD_INCLUDEDIRS ".")
+
+register_component()
