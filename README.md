@@ -5,6 +5,8 @@
 ### Configure the project
 
 ```
+git clone https://github.com/nopnop2002/esp-idf-ping
+cd esp-idf-ping
 make menuconfig
 ```
 
