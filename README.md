@@ -1,9 +1,7 @@
 # WiFi station with ping
 ping example for esp-idf
 
-## How to use example
-
-### Configure the project
+## Configure the project
 
 ```
 git clone https://github.com/nopnop2002/esp-idf-ping
@@ -18,7 +16,7 @@ make menuconfig
 ![config-2](https://user-images.githubusercontent.com/6020549/72844479-ee344d00-3cdf-11ea-83c4-01ff97501370.jpg)
 
 
-### Build and Flash
+## Build and Flash
 
 Build the project and flash it to the board, then run monitor tool to view serial output:
 
