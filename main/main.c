@@ -14,6 +14,7 @@
 #include "esp_event.h"
 #include "esp_log.h"
 #include "nvs_flash.h"
+#include "mdns.h"
 
 #include "ping.h"
 
@@ -22,9 +23,10 @@
    If you'd rather not, just change the below entries to strings with
    the config you want - ie #define EXAMPLE_WIFI_SSID "mywifissid"
 */
-#define EXAMPLE_ESP_WIFI_SSID	   CONFIG_ESP_WIFI_SSID
-#define EXAMPLE_ESP_WIFI_PASS	   CONFIG_ESP_WIFI_PASSWORD
-#define EXAMPLE_ESP_MAXIMUM_RETRY  CONFIG_ESP_MAXIMUM_RETRY
+#define EXAMPLE_ESP_WIFI_SSID		CONFIG_ESP_WIFI_SSID
+#define EXAMPLE_ESP_WIFI_PASS		CONFIG_ESP_WIFI_PASSWORD
+#define EXAMPLE_ESP_MAXIMUM_RETRY	CONFIG_ESP_MAXIMUM_RETRY
+#define EXAMPLE_MDNS_HOSTNAME		CONFIG_MDNS_HOSTNAME
 
 /* FreeRTOS event group to signal when we are connected*/
 static EventGroupHandle_t s_wifi_event_group;
@@ -130,6 +132,19 @@ esp_err_t wifi_init_sta()
 	return ret_value; 
 }
 
+void initialise_mdns(void)
+{
+    //initialize mDNS
+    ESP_ERROR_CHECK( mdns_init() );
+    //set mDNS hostname (required if you want to advertise services)
+    ESP_ERROR_CHECK( mdns_hostname_set(EXAMPLE_MDNS_HOSTNAME) );
+    ESP_LOGI(TAG, "mdns hostname set to: [%s]", EXAMPLE_MDNS_HOSTNAME);
+#if 0
+    //set default mDNS instance name
+    ESP_ERROR_CHECK( mdns_instance_name_set(EXAMPLE_MDNS_INSTANCE) );
+#endif
+}
+
 void app_main()
 {
 	//Initialize NVS
@@ -140,9 +155,9 @@ void app_main()
 	}
 	ESP_ERROR_CHECK(ret);
 	
-	ESP_LOGI(TAG, "ESP_WIFI_MODE_STA");
 	if (wifi_init_sta() == ESP_OK) {
 		ESP_LOGI(TAG, "Connection success");
+		initialise_mdns();
 		if (initialize_ping(10000, 10, TARGET_HOST) == ESP_OK) {
 			ESP_LOGI(TAG, "initialize_ping success");
 		} else {
