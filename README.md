@@ -33,6 +33,6 @@ make flash monitor ESPPORT=/dev/ttyUSB1
 See the Getting Started Guide for full steps to configure and use ESP-IDF to build projects.
 
 ## ping request
-You can make a ping request using msdn hostname.
+You can make a ping request using mDNS hostname.
 
 ![esp-idf-ping](https://user-images.githubusercontent.com/6020549/93407279-ba401480-f8cc-11ea-8e1b-9f9238af9d5d.jpg)
