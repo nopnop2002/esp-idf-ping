@@ -1,9 +1,9 @@
 /*
-   This example code is in the Public Domain (or CC0 licensed, at your option.)
+	 This example code is in the Public Domain (or CC0 licensed, at your option.)
 
-   Unless required by applicable law or agreed to in writing, this
-   software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied.
+	 Unless required by applicable law or agreed to in writing, this
+	 software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+	 CONDITIONS OF ANY KIND, either express or implied.
 */
 #include <string.h>
 #include "freertos/FreeRTOS.h"
@@ -35,12 +35,12 @@ void cmd_ping_on_ping_success(esp_ping_handle_t hdl, void *args)
 
 #if 1
 	ESP_LOGI(TAG, "%d bytes from %s icmp_seq=%d ttl=%d time=%d ms",
-		   recv_len, inet_ntoa(target_addr.u_addr.ip4), seqno, ttl, elapsed_time);
+			 recv_len, inet_ntoa(target_addr.u_addr.ip4), seqno, ttl, elapsed_time);
 #else
 	wifi_ap_record_t wifidata;
 	esp_wifi_sta_get_ap_info(&wifidata);
 	ESP_LOGI(TAG, "%d bytes from %s icmp_seq=%d ttl=%d time=%d ms RSSI=%d",
-		   recv_len, inet_ntoa(target_addr.u_addr.ip4), seqno, ttl, elapsed_time, wifidata.rssi);
+			 recv_len, inet_ntoa(target_addr.u_addr.ip4), seqno, ttl, elapsed_time, wifidata.rssi);
 #endif
 }
 
@@ -70,7 +70,7 @@ void cmd_ping_on_ping_end(esp_ping_handle_t hdl, void *args)
 		ESP_LOGI(TAG, "\n--- %s ping statistics ---", inet6_ntoa(*ip_2_ip6(&target_addr)));
 	}
 	ESP_LOGI(TAG, "%d packets transmitted, %d received, %d%% packet loss, time %dms",
-		   transmitted, received, loss, total_time_ms);
+			 transmitted, received, loss, total_time_ms);
 	// delete the ping sessions, so that we clean up all resources and can create a new ping session
 	// we don't have to call delete function in the callback, instead we can call delete function from other tasks
 	esp_ping_delete_session(hdl);

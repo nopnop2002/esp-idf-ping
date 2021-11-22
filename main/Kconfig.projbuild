@@ -1,4 +1,4 @@
-menu "Example Configuration"
+menu "Application Configuration"
 
 	config ESP_WIFI_SSID
 		string "WiFi SSID"
@@ -17,11 +17,5 @@ menu "Example Configuration"
 		default 5
 		help
 			Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
-
-	config MDNS_HOSTNAME
-		string "mDNS Hostname"
-		default "esp32-mdns"
-		help
-			mDNS Hostname for example to use
 
 endmenu
