@@ -1,6 +1,7 @@
 # esp-idf-ping
 ping example for esp-idf.   
 This project pings your WiFi router.   
+ICMP Echo document is [here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/protocols/icmp_echo.html#start-and-stop-ping-session).   
 
 # Installation
 ```
