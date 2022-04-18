@@ -126,7 +126,8 @@ void app_main()
 	
 	if (wifi_init_sta() == ESP_OK) {
 		ESP_LOGI(TAG, "Connection success");
-		if (initialize_ping(10000, 10, TARGET_HOST) == ESP_OK) {
+		//if (initialize_ping(10000, 10, TARGET_HOST) == ESP_OK) {
+		if (initialize_ping(1000, 2, TARGET_HOST) == ESP_OK) {
 			ESP_LOGI(TAG, "initialize_ping success");
 		} else {
 			ESP_LOGE(TAG, "initialize_ping fail");

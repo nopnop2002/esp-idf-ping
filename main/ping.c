@@ -10,13 +10,8 @@
 #include "esp_wifi.h"
 #include "esp_log.h"
 
-#include "tcpip_adapter_types.h"
-
-#include "lwip/err.h"
 #include "lwip/sockets.h"
-#include "lwip/sys.h"
 #include "lwip/netdb.h"
-#include "lwip/dns.h"
 #include "ping/ping_sock.h"
 
 static const char *TAG = "PING";
@@ -115,16 +110,27 @@ esp_err_t initialize_ping(uint32_t interval_ms, uint32_t task_prio, char * targe
 		ping_config.target_addr = target_addr;			// target IP address
 	} else {
 		// ping target is my gateway
-		tcpip_adapter_ip_info_t ip_info;
-		ESP_ERROR_CHECK(tcpip_adapter_get_ip_info(TCPIP_ADAPTER_IF_STA, &ip_info));
-		ESP_LOGI(TAG, "IP Address: %s", ip4addr_ntoa(&ip_info.ip));
-		ESP_LOGI(TAG, "Subnet mask: %s", ip4addr_ntoa(&ip_info.netmask));
-		ESP_LOGI(TAG, "Gateway:	%s", ip4addr_ntoa(&ip_info.gw));
+		//tcpip_adapter_ip_info_t ip_info;
+		//ESP_ERROR_CHECK(tcpip_adapter_get_ip_info(TCPIP_ADAPTER_IF_STA, &ip_info));
+		//ESP_LOGI(TAG, "IP Address: %s", ip4addr_ntoa(&ip_info.ip));
+		//ESP_LOGI(TAG, "Subnet mask: %s", ip4addr_ntoa(&ip_info.netmask));
+		//ESP_LOGI(TAG, "Gateway:	%s", ip4addr_ntoa(&ip_info.gw));
+		esp_netif_ip_info_t ip_info;
+		ESP_ERROR_CHECK(esp_netif_get_ip_info(esp_netif_get_handle_from_ifkey("WIFI_STA_DEF"), &ip_info));
+		ESP_LOGI(TAG, "IP Address : " IPSTR, IP2STR(&ip_info.ip));
+		ESP_LOGI(TAG, "Subnet Mask: " IPSTR, IP2STR(&ip_info.netmask));
+		ESP_LOGI(TAG, "Gateway    : " IPSTR, IP2STR(&ip_info.gw));
+		// convert from esp_ip4_addr_t to string "192.168.10.1"
+		char buf[32];
+		sprintf(buf, IPSTR, IP2STR(&ip_info.gw));
+		// convert from string to ip_addr_t
 		ip_addr_t gateway_addr;
-		gateway_addr.type = 0;
-		gateway_addr.u_addr.ip4 = ip_info.gw;
-		ESP_LOGI(TAG, "gateway_addr.type=%d", gateway_addr.type);
-		ESP_LOGI(TAG, "gateway_addr=%s", ip4addr_ntoa(&(gateway_addr.u_addr.ip4)));
+		ip4addr_aton(buf, &gateway_addr.u_addr.ip4);
+		// set lwip_ip_addr_type
+		gateway_addr.type = IPADDR_TYPE_V4;
+		//gateway_addr.u_addr.ip4 = ip_info.gw;
+		//gateway_addr = ip_info.gw;
+		ESP_LOGI(TAG, "gateway_addr:%s", ip4addr_ntoa(&(gateway_addr.u_addr.ip4)));
 		ping_config.target_addr = gateway_addr;			// gateway IP address
 	}
 
