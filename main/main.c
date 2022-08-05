@@ -25,14 +25,16 @@ static EventGroupHandle_t s_wifi_event_group;
  * - we are connected to the AP with an IP
  * - we failed to connect after the maximum amount of retries */
 #define WIFI_CONNECTED_BIT BIT0
-#define WIFI_FAIL_BIT		 BIT1
+#define WIFI_FAIL_BIT BIT1
 
-static const char *TAG = "wifi station";
+static const char *TAG = "main";
 
+#if 0
 /* target_host is www.espressif.com */
 //char *TARGET_HOST = "www.espressif.com";
 /* target_host is own gateway */
-char *TARGET_HOST = "";
+//char *TARGET_HOST = "";
+#endif
 
 static int s_retry_num = 0;
 
@@ -124,16 +126,25 @@ void app_main()
 	}
 	ESP_ERROR_CHECK(ret);
 	
-	if (wifi_init_sta() == ESP_OK) {
-		ESP_LOGI(TAG, "Connection success");
-		//if (initialize_ping(10000, 10, TARGET_HOST) == ESP_OK) {
-		if (initialize_ping(1000, 2, TARGET_HOST) == ESP_OK) {
-			ESP_LOGI(TAG, "initialize_ping success");
-		} else {
-			ESP_LOGE(TAG, "initialize_ping fail");
-		}
-	} else {
+	if (wifi_init_sta() != ESP_OK) {
 		ESP_LOGE(TAG, "Connection failed");
 		while(1) { vTaskDelay(1); }
+	}
+
+	ESP_LOGI(TAG, "Connection success");
+#if CONFIG_TARGET_OWN_GATEWAY
+	char *TARGET_HOST = "";
+	ESP_LOGI(TAG, "target host is own gateway");
+#endif
+#if CONFIG_TARGET_ESPRESSIF
+	char *TARGET_HOST = "www.espressif.com";
+	ESP_LOGI(TAG, "target host is www.espressif.com");
+#endif
+
+	//if (initialize_ping(10000, 10, TARGET_HOST) == ESP_OK) {
+	if (initialize_ping(1000, 2, TARGET_HOST) == ESP_OK) {
+		ESP_LOGI(TAG, "initialize_ping success");
+	} else {
+		ESP_LOGE(TAG, "initialize_ping fail");
 	}
 }

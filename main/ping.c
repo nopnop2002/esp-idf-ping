@@ -106,8 +106,8 @@ esp_err_t initialize_ping(uint32_t interval_ms, uint32_t task_prio, char * targe
 		}
 		freeaddrinfo(res);
 		ESP_LOGI(TAG, "target_addr.type=%d", target_addr.type);
-		ESP_LOGI(TAG, "target_addr=%s", ip4addr_ntoa(&(target_addr.u_addr.ip4)));
-		ping_config.target_addr = target_addr;			// target IP address
+		ESP_LOGI(TAG, "target_addr.u_addr.ip4=%s", ip4addr_ntoa(&(target_addr.u_addr.ip4)));
+		ping_config.target_addr = target_addr; // target IP address
 	} else {
 		// ping target is my gateway
 		//tcpip_adapter_ip_info_t ip_info;
@@ -115,26 +115,31 @@ esp_err_t initialize_ping(uint32_t interval_ms, uint32_t task_prio, char * targe
 		//ESP_LOGI(TAG, "IP Address: %s", ip4addr_ntoa(&ip_info.ip));
 		//ESP_LOGI(TAG, "Subnet mask: %s", ip4addr_ntoa(&ip_info.netmask));
 		//ESP_LOGI(TAG, "Gateway:	%s", ip4addr_ntoa(&ip_info.gw));
+
+		// get gateway address in esp_netif_ip_info_t
 		esp_netif_ip_info_t ip_info;
 		ESP_ERROR_CHECK(esp_netif_get_ip_info(esp_netif_get_handle_from_ifkey("WIFI_STA_DEF"), &ip_info));
-		ESP_LOGI(TAG, "IP Address : " IPSTR, IP2STR(&ip_info.ip));
-		ESP_LOGI(TAG, "Subnet Mask: " IPSTR, IP2STR(&ip_info.netmask));
-		ESP_LOGI(TAG, "Gateway    : " IPSTR, IP2STR(&ip_info.gw));
-		// convert from esp_ip4_addr_t to string "192.168.10.1"
+		ESP_LOGD(TAG, "ip_info.ip=" IPSTR, IP2STR(&ip_info.ip));
+		ESP_LOGD(TAG, "ip_info.netmask=" IPSTR, IP2STR(&ip_info.netmask));
+		ESP_LOGI(TAG, "ip_info.gw=" IPSTR, IP2STR(&ip_info.gw));
+
+		// convert from esp_ip4_addr_t to string like "192.168.10.1"
 		char buf[32];
 		sprintf(buf, IPSTR, IP2STR(&ip_info.gw));
+
 		// convert from string to ip_addr_t
 		ip_addr_t gateway_addr;
 		ip4addr_aton(buf, &gateway_addr.u_addr.ip4);
+
 		// set lwip_ip_addr_type
 		gateway_addr.type = IPADDR_TYPE_V4;
 		//gateway_addr.u_addr.ip4 = ip_info.gw;
 		//gateway_addr = ip_info.gw;
-		ESP_LOGI(TAG, "gateway_addr:%s", ip4addr_ntoa(&(gateway_addr.u_addr.ip4)));
-		ping_config.target_addr = gateway_addr;			// gateway IP address
+		ESP_LOGI(TAG, "gateway_addr.u_addr.ip4=%s", ip4addr_ntoa(&(gateway_addr.u_addr.ip4)));
+		ping_config.target_addr = gateway_addr; // gateway IP address
 	}
 
-	ping_config.count = ESP_PING_COUNT_INFINITE;		// ping in infinite mode, esp_ping_stop can stop it
+	ping_config.count = ESP_PING_COUNT_INFINITE; // ping in infinite mode, esp_ping_stop can stop it
 	ping_config.interval_ms = interval_ms;
 	ping_config.task_prio = task_prio;
 
