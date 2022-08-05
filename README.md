@@ -1,6 +1,6 @@
 # esp-idf-ping
 ping example for esp-idf.   
-This project pings your WiFi router.   
+This project pings your own gateway or www.espressif.com.   
 ICMP Echo document is [here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/protocols/icmp_echo.html).   
 
 # Installation
