@@ -15,10 +15,10 @@ idf.py flash monitor
 # Configuration
 ![config-top](https://user-images.githubusercontent.com/6020549/142784392-17edc93c-f642-45a3-a6d7-82d013f34ff8.jpg)
 
-- Target is own gateway   
+Target is own gateway   
 ![config-app-1](https://user-images.githubusercontent.com/6020549/183223688-984ddd77-dd58-4a47-9925-2b78dcdaf8e5.jpg)
 
-- Target is www.espressif.com   
+Target is www.espressif.com   
 ![config-app-2](https://user-images.githubusercontent.com/6020549/183223692-9a39550c-0270-42a3-8bbd-b2d6b882b40a.jpg)
 
 # Screen Shot
