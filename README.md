@@ -3,6 +3,9 @@ ping example for esp-idf.
 This project pings own gateway or www.espressif.com.   
 ICMP Echo document is [here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/protocols/icmp_echo.html).   
 
+# Software requirement
+esp-idf v4.4/v5.0.   
+
 # Installation
 ```
 git clone https://github.com/nopnop2002/esp-idf-ping
