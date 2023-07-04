@@ -31,6 +31,17 @@ menu "Application Configuration"
 			bool "Ping target is www.espressif.com"
 			help
 				Ping target is www.espressif.com.
+		config TARGET_ANY
+			bool "Ping target is any server"
+			help
+				Ping target is any server.
 	endchoice
+
+	config PING_TARGET
+		depends on TARGET_ANY
+		string "Ping target"
+		default "myserver.local"
+		help
+			Ping target IP address or mDNS hostname.
 
 endmenu

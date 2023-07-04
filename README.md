@@ -10,7 +10,7 @@ esp-idf v4.4/v5.0.
 ```
 git clone https://github.com/nopnop2002/esp-idf-ping
 cd esp-idf-ping
-idf.py set-target {esp32/esp32s2/esp32s3/esp32c3}
+idf.py set-target {esp32/esp32s2/esp32s3/esp32c3/esp32c2}
 idf.py menuconfig
 idf.py flash monitor
 ```
@@ -23,6 +23,9 @@ Target is own gateway
 
 Target is www.espressif.com   
 ![config-app-2](https://user-images.githubusercontent.com/6020549/183223692-9a39550c-0270-42a3-8bbd-b2d6b882b40a.jpg)
+
+Target is any server   
+![config-app-3](https://github.com/nopnop2002/esp-idf-ping/assets/6020549/50fec73d-0f17-4048-ba5c-8300730ee543)
 
 # Screen Shot
 ![esp-idf-ping](https://user-images.githubusercontent.com/6020549/183223706-f3e5b641-0ad7-4da7-8b9f-ab959c2b41c8.jpg)

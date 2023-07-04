@@ -38,9 +38,7 @@ static const char *TAG = "main";
 
 static int s_retry_num = 0;
 
-
-static void event_handler(void* arg, esp_event_base_t event_base,
-								int32_t event_id, void* event_data)
+static void event_handler(void* arg, esp_event_base_t event_base, int32_t event_id, void* event_data)
 {
 	if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
 		esp_wifi_connect();
@@ -118,7 +116,7 @@ esp_err_t wifi_init_sta()
 
 void app_main()
 {
-	//Initialize NVS
+	// Initialize NVS
 	esp_err_t ret = nvs_flash_init();
 	if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
 		ESP_ERROR_CHECK(nvs_flash_erase());
@@ -126,12 +124,12 @@ void app_main()
 	}
 	ESP_ERROR_CHECK(ret);
 	
+	// Initialize WiFi
 	if (wifi_init_sta() != ESP_OK) {
 		ESP_LOGE(TAG, "Connection failed");
 		while(1) { vTaskDelay(1); }
 	}
 
-	ESP_LOGI(TAG, "Connection success");
 #if CONFIG_TARGET_OWN_GATEWAY
 	char *TARGET_HOST = "";
 	ESP_LOGI(TAG, "target host is own gateway");
@@ -140,8 +138,11 @@ void app_main()
 	char *TARGET_HOST = "www.espressif.com";
 	ESP_LOGI(TAG, "target host is www.espressif.com");
 #endif
+#if CONFIG_TARGET_ANY
+	char *TARGET_HOST = CONFIG_PING_TARGET;
+	ESP_LOGI(TAG, "target host is %s", CONFIG_PING_TARGET);
+#endif
 
-	//if (initialize_ping(10000, 10, TARGET_HOST) == ESP_OK) {
 	if (initialize_ping(1000, 2, TARGET_HOST) == ESP_OK) {
 		ESP_LOGI(TAG, "initialize_ping success");
 	} else {
