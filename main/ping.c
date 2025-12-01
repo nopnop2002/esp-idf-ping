@@ -109,16 +109,9 @@ esp_err_t initialize_ping(uint32_t interval_ms, uint32_t task_prio, char * targe
 		}
 		freeaddrinfo(res);
 		ESP_LOGI(TAG, "target_addr.type=%d", target_addr.type);
-		ESP_LOGI(TAG, "target_addr.u_addr.ip4=%s", ip4addr_ntoa(&(target_addr.u_addr.ip4)));
+		ESP_LOGI(TAG, "target_addr.u_addr.ip4="IPSTR, IP2STR(&(target_addr.u_addr.ip4)));
 		ping_config.target_addr = target_addr; // target IP address
 	} else {
-		// ping target is my gateway
-		//tcpip_adapter_ip_info_t ip_info;
-		//ESP_ERROR_CHECK(tcpip_adapter_get_ip_info(TCPIP_ADAPTER_IF_STA, &ip_info));
-		//ESP_LOGI(TAG, "IP Address: %s", ip4addr_ntoa(&ip_info.ip));
-		//ESP_LOGI(TAG, "Subnet mask: %s", ip4addr_ntoa(&ip_info.netmask));
-		//ESP_LOGI(TAG, "Gateway:	%s", ip4addr_ntoa(&ip_info.gw));
-
 		// get gateway address in esp_netif_ip_info_t
 		esp_netif_ip_info_t ip_info;
 		ESP_ERROR_CHECK(esp_netif_get_ip_info(esp_netif_get_handle_from_ifkey("WIFI_STA_DEF"), &ip_info));
@@ -138,7 +131,7 @@ esp_err_t initialize_ping(uint32_t interval_ms, uint32_t task_prio, char * targe
 		gateway_addr.type = IPADDR_TYPE_V4;
 		//gateway_addr.u_addr.ip4 = ip_info.gw;
 		//gateway_addr = ip_info.gw;
-		ESP_LOGI(TAG, "gateway_addr.u_addr.ip4=%s", ip4addr_ntoa(&(gateway_addr.u_addr.ip4)));
+		ESP_LOGI(TAG, "gateway_addr.u_addr.ip4="IPSTR, IP2STR(&(gateway_addr.u_addr.ip4)));
 		ping_config.target_addr = gateway_addr; // gateway IP address
 	}
 
