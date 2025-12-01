@@ -4,13 +4,13 @@ This project pings own gateway or www.espressif.com.
 ICMP Echo document is [here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/protocols/icmp_echo.html).   
 
 # Software requirement
-esp-idf v4.4/v5.0.   
+ESP-IDF V5.0 or later.   
+ESP-IDF V4.4 release branch reached EOL in July 2024.   
 
 # Installation
 ```
 git clone https://github.com/nopnop2002/esp-idf-ping
 cd esp-idf-ping
-idf.py set-target {esp32/esp32s2/esp32s3/esp32c3/esp32c2}
 idf.py menuconfig
 idf.py flash monitor
 ```
